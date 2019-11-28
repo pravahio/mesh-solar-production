@@ -1,0 +1,142 @@
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// DRAFT v0.1: Data sharing standard for sharing power production data from solar power plants.
+
+syntax = "proto3";
+
+package solar_production;
+
+option java_package = "io.pravah.solar.production";
+
+message FeedMessage {
+    // Metadata
+    FeedHeader header = 1;
+
+    // A solar power station is a collection of one or more inverters
+    // where each inverter is connected to one or more solar panels.
+    repeated FeedStation stations = 2;
+}
+
+message FeedHeader {
+    // Version of the feed specification.
+    // The current version is 0.0.1
+    string version = 1;
+  
+    // Determines whether the current fetch is incremental.
+    enum Incrementality {
+        FULL_DATASET = 0;
+        DIFFERENTIAL = 1;
+    }
+    Incrementality incrementality = 2;
+  
+    // This timestamp identifies the moment when the content of this feed has been
+    // created (time at the server). In POSIX time (i.e., number of seconds since
+    // January 1st 1970 00:00:00 UTC).
+    uint64 timestamp = 3;
+  }
+
+message FeedStation {
+    // id identifies each station uniquely.
+    string id = 1;
+
+    // Station status.
+    Status status = 2;
+
+    PowerGenerationParameters powerGenerationParameters = 3;
+    Info info = 4;
+    repeated Inverter inverterList = 5;
+
+    // timestamp identifies the moment when values are observed by the device.
+    uint64 timestamp = 6;
+}
+
+message Inverter {
+
+    string id = 1;
+
+    // Status of the inverter.
+    Status status = 2;
+
+    // Power Generation Data
+    repeated PhaseComponents phaseComponents = 3;
+    repeated SolarPanelGroup solarPanelGroup = 4;
+    
+    PowerGenerationParameters powerGenerationParameters = 5;
+
+    // Metadata
+    Info info = 6;
+
+    // timestamp when this measure was taken by the instrument.
+    uint64 timestamp = 7;
+}
+
+message PowerGenerationParameters {
+    float currentPowerOutput = 1;                       // kW
+    float powerGeneratedToday = 2;                      // kWh
+    float irradiation = 3;                              // kW/m^2
+    float windspeed = 4;                                // m/s
+    float moduleTemperature = 5;                        // °C
+}
+
+message Info {
+    double powerCapacity = 1;                           // kWp (peak power)
+    string name = 2;
+    Location location = 3;
+}
+
+message PhaseComponents {
+    enum Phase {
+        B = 0;
+        R = 1;
+        Y = 2;
+    }
+
+    ElectricComponents electricComponents = 1;
+    Phase phase = 2;
+}
+
+message SolarPanelGroup {
+    // Output from all standard solar panel is expected to be DC.
+    ElectricComponents electricComponents = 1;
+    // Number of panels in this group.
+    uint32 panelCount = 2;
+    float averageGroupModuleTemp = 3;
+}
+
+message ElectricComponents {
+    double power = 1;       // Watt (W)
+    double voltage = 2;     // Volt (V)
+    double current = 3;     // Ampere (A)
+    double frequency = 4;   // Hertz (Hz) - Will be missing for DC.
+}
+
+message Location {
+    double latitude = 1;
+    double longitude = 2;
+}
+
+message Status {
+    enum State {
+        CONNECTED = 0;
+        DISCONNECTED = 1;
+    }
+
+    State state = 1;
+    string message = 2;
+}
+
+message Error {
+    string type = 1;
+    float value = 2;
+}
