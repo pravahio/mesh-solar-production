@@ -1,0 +1,95 @@
+{
+    "header": {
+        "timestamp": 154635342
+    },
+    "stations": [
+        {
+            "id": "station_1",
+            "powerGenerationParameters": {
+
+            },
+            "info": {
+                "powerCapacity": 12.3,
+                "name": "IIITD",
+                "location": {
+                    "latitude": 12.354534,
+                    "longitude": 74.63534
+                }
+            },
+            "inverterList": [
+                {
+                    "id": "inv_1",
+                    "phaseComponents": [
+                        {
+                            "electricComponents": {
+                                "power": 12.3,
+                                "voltage": 24.3,
+                                "current": 45,
+                                "frequency": 50.3
+                            }
+                        },
+                        {
+                            "electricComponents": {
+                                "power": 12.3,
+                                "voltage": 24.3,
+                                "current": 45,
+                                "frequency": 50.3
+                            }
+                        }
+                    ],
+                    "powerGenerationParameters": {
+                        "currentPowerOutput": 40,
+                        "powerGeneratedToday": 120,
+                        "irradiation": 12,
+                        "windspeed": 10,
+                        "moduleTemperature": 25.4
+                    },
+                    "info": {
+                        "powerCapacity": 2.3,
+                        "name": "IIITD_HOSTEL",
+                        "location": {
+                            "latitude": 12.364534,
+                            "longitude": 74.62534
+                        }
+                    }
+                },
+                {
+                    "id": "inv_1",
+                    "phaseComponents": [
+                        {
+                            "electricComponents": {
+                                "power": 12.3,
+                                "voltage": 24.3,
+                                "current": 45,
+                                "frequency": 50.3
+                            }
+                        },
+                        {
+                            "electricComponents": {
+                                "power": 12.3,
+                                "voltage": 24.3,
+                                "current": 45,
+                                "frequency": 50.3
+                            }
+                        }
+                    ],
+                    "powerGenerationParameters": {
+                        "currentPowerOutput": 40,
+                        "powerGeneratedToday": 120,
+                        "irradiation": 12,
+                        "windspeed": 10,
+                        "moduleTemperature": 25.4
+                    },
+                    "info": {
+                        "powerCapacity": 2.3,
+                        "name": "IIITD_HOSTEL",
+                        "location": {
+                            "latitude": 12.364534,
+                            "longitude": 74.62534
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
