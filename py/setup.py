@@ -20,6 +20,6 @@ setuptools.setup(
     ],
     install_requires = [
         'mesh_rpc',
-        'dict_to_protobuf'
+        'protobuf'
     ]
 )
