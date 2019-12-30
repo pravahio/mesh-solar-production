@@ -1,11 +1,10 @@
 import grpc
+from google.protobuf.json_format import ParseDict
 from mesh_rpc.mesh import MeshRPC
 from mesh_rpc.exp import MeshRPCException
 
 from .lib.solar_production_pb2 import FeedMessage
 from .defaults import Default
-
-import dict_to_protobuf
 
 class MeshSolarPowerProduction(MeshRPC):
     def __init__(self, endpoint='127.0.0.1:5555'):
@@ -38,9 +37,7 @@ class MeshSolarPowerProduction(MeshRPC):
         d['header']['version'] = "0.0.1"
         
         feed = FeedMessage()
-
-        dict_to_protobuf.dict_to_protobuf(d, feed)
-
+        ParseDict(d, feed, True)
         raw = feed.SerializeToString()
 
         try:
