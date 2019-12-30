@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="mesh_solar_power_production",
-    version="0.0.1",
+    version="0.0.2",
     author="Abhishek Upperwal",
     author_email="mesh@soket.in",
     description="Solar Power Production client for mesh-pravah",
